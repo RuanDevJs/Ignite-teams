@@ -1,0 +1,25 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import AppError from "@utils/AppError";
+
+import Config from "@storage/storageConfig";
+
+import { playersGetByGroup } from "./playersGetByGroup";
+import { PlayerStorgaDTO } from "./PlayerStorageDTO";
+
+export default async function playerAddByGroup(newPlayer: PlayerStorgaDTO, group: string){
+  try {
+    const storedPlayers = await playersGetByGroup(group);
+
+    const playerAlreadyExits = storedPlayers.filter(player => player.name === newPlayer.name);
+
+    if(playerAlreadyExits.length){
+      throw new AppError('This player\'s already on a team');
+    }
+
+    const storage = JSON.stringify([...storedPlayers, newPlayer]);
+
+    await AsyncStorage.setItem(`${Config.PLAYER_CONFIG}-${group}`, storage);
+  } catch (error) {
+    throw error;
+  }
+}

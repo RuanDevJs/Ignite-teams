@@ -1,0 +1,13 @@
+{
+  "files.exclude": {
+    ".expo": true,
+    ".expo-shared": true,
+    "node_modules": true,
+    "yarn.lock": true,
+    "tsconfig.json": false,
+    "app.json": true,
+    ".gitignore": true,
+    ".editorconfig": true,
+    "index.d.ts": true
+  }
+}
